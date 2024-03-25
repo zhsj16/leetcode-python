@@ -1,19 +1,20 @@
-from typing import *
+from typing import List
 
 
 class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
-        res = []
+        ans = []
         path = []
 
-        def dfs(i, path):
+        def dfs(i):
             if len(path) == k:
-                res.append(path[:])
+                ans.append(path[:])
                 return
-            for j in range(i, n + 1):
-                path.append(j)
-                dfs(j + 1, path)
-                path.pop()
+            else:
+                for j in range(i, n):
+                    path.append(j + 1)
+                    dfs(j + 1)
+                    path.pop()
 
-        dfs(1, path)
-        return res
+        dfs(0)
+        return ans
